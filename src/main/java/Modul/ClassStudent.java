@@ -33,7 +33,6 @@ public class ClassStudent {
 
     public void setStudent(String student) {
         this.student = student;
-
     }
 
     @Override
