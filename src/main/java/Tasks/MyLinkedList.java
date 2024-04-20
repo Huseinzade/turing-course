@@ -82,16 +82,20 @@ public class MyLinkedList<E> {
 
     // delete
     public void delete (E data) throws NullPointerException {
-
-
         if(head == null) {
             return;
         }
+        if (head.getData().equals(data)) {
+            head = head.getNext();
+            return;
+        }
+
         Node<E> prev = null;
         Node<E> curr = head;
         while(curr != null){
             if (curr.getData().equals(data)){
                 prev.setNext(curr.getNext());
+                size--;
                 return;
             }
         }
