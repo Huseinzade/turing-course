@@ -1,52 +1,49 @@
 package HappyFamily;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 public class Family {
     private Human mother;
     private Human father;
-    private Human[] children;
-    private Pet pet;
+    private List<Human> children;
+    private Set<Pet> pet;
 
     public Family(Human mother, Human father) {
         this.mother = mother;
         this.father = father;
-        this.children = new Human[0];
+        this.children = new ArrayList<>();
     }
 
+//    public void addChild(Human child) {
+//        if (children != null) {
+//            Human[] newChildren = new Human[children.length + 1];
+//            for (int i = 0; i < children.length; i++) {
+//                newChildren[i] = children[i];
+//            }
+//            newChildren[children.length] = child;
+//            children = newChildren;
+//        } else {
+//            children = new Human[1];
+//            children[0] = child;
+//        }
+//    }
+
     public void addChild(Human child) {
-        if (children != null) {
-            Human[] newChildren = new Human[children.length + 1];
-            for (int i = 0; i < children.length; i++) {
-                newChildren[i] = children[i];
-            }
-            newChildren[children.length] = child;
-            children = newChildren;
-        } else {
-            children = new Human[1];
-            children[0] = child;
-        }
+        children.add(child);
     }
 
 
     public void deleteChild (Human child){
-        Human[] newChildren2 = new Human[children.length-1];
-        int index = 0;
-        for (int i = 0; i < children.length; i++) {
-            if(children[i] == child){
-                continue;
-            }else {
-                newChildren2[index] = children[i];
-                index++;
-            }
-        }
-        children = newChildren2;
+        children.remove(child);
     }
 
     public int countFamily(){
         int familySize = 2;
         if(children != null){
-            familySize = familySize + children.length;
+            familySize = familySize + children.size();
         }
         if(pet != null){
             familySize++;
@@ -70,24 +67,21 @@ public class Family {
         this.father = father;
     }
 
-    public Human[] getChildren() {
+    public List<Human> getChildren() {
         return children;
     }
 
-    public void setChildren(Human[] children) {
+    public void setChildren(List<Human> children) {
         this.children = children;
     }
 
-    public Pet getPet() {
+    public Set<Pet> getPet() {
         return pet;
     }
 
-    public void setPet(Pet pet) {
+    public void setPet(Set<Pet> pet) {
         this.pet = pet;
     }
-
-
-
 
     @Override
     public int hashCode() {
@@ -102,6 +96,6 @@ public class Family {
     @Override
     public String toString() {
         return "Family{ " + "MOTHER= " + mother + ", FATHER= " +
-                father + ", CHILDREN= " + Arrays.toString(children) + ", PET= " + pet ;
+                father + ", CHILDREN= " + children.toString() + ", PET= " + pet.toString() ;
     }
 }

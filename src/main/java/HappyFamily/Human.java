@@ -1,51 +1,35 @@
 package HappyFamily;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Human {
     private String name;
     private String surname;
     private int year;
     private int iq;
-    private Pet pet;
-    private Human mother;
-    private Human father;
-    private String[][] schedule;
+    private Map<String, String> schedule;
+    private Family family;
 
-    public int getYear() {
-        return year;
-    }
 
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public Human(String name, String surname, int year) {
-        this.name = name;
-        this.surname = surname;
-        this.year = year;
-    }
-
-    public Human(String name, String surname, int year, Human mother, Human father) {
-        this.name = name;
-        this.surname = surname;
-        this.year = year;
-        this.mother = mother;
-        this.father = father;
-    }
-
-    public Human(String name, String surname, int year, int iq, Pet pet, Human mother, Human father, String[][] schedule) {
+    public Human(String name, String surname, int year, int iq, Map<String, String> schedule) {
         this.name = name;
         this.surname = surname;
         this.year = year;
         this.iq = iq;
-        this.pet = pet;
-        this.mother = mother;
-        this.father = father;
         this.schedule = schedule;
     }
-
-    public Human() {
-
+    public Human(String name, String surname, int year, int iq, Map<String, String> schedule, Family family) {
+        this.name = name;
+        this.surname = surname;
+        this.year = year;
+        this.iq = iq;
+        this.schedule = schedule;
+        this.family = family;
     }
+
+
+
 
     public String getName() {
         return name;
@@ -63,6 +47,14 @@ public class Human {
         this.surname = surname;
     }
 
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
     public int getIq() {
         return iq;
     }
@@ -71,37 +63,27 @@ public class Human {
         this.iq = iq;
     }
 
-    public Pet getPet() {
-        return pet;
-    }
-
-    public void setPet(Pet pet) {
-        this.pet = pet;
-    }
-
-    public Human getMother() {
-        return mother;
-    }
-
-    public void setMother(Human mother) {
-        this.mother = mother;
-    }
-
-    public Human getFather() {
-        return father;
-    }
-
-    public void setFather(Human father) {
-        this.father = father;
-    }
-
-    public String[][] getSchedule() {
+    public Map<String, String> getSchedule() {
         return schedule;
     }
 
-    public void setSchedule(String[][] schedule) {
+    public void setSchedule(Map<String, String> schedule) {
         this.schedule = schedule;
     }
+
+    public Family getFamily() {
+        return family;
+    }
+
+    public void setFamily(Family family) {
+        this.family = family;
+    }
+
+//    @Override
+//    protected void finalize() throws Throwable {
+//        System.out.println("object is remova");
+//        super.finalize();
+//    }
 
     @Override
     public int hashCode() {
@@ -115,19 +97,25 @@ public class Human {
 
     @Override
     public String toString() {
-        return "Human" + "{name=" + name + ", surname=" + surname + ", year=" +
-                year + ", iq=" + iq + ", mother=" + mother.getName() + " " + mother.getSurname()
-                + ", father=" + father.getName() + " " + father.getSurname() +
-                ", pet=" + pet;
+        StringBuilder sch = new StringBuilder();
+        if (schedule != null) {
+            for (Map.Entry<String, String> i : schedule.entrySet()) {
+                sch.append(i.getKey()).append(": ").append(i.getValue()).append(", ");
+            }
+        }
+        return "{name=" + name + ", surname=" + surname + ", year=" +
+                year + ", iq=" + iq + ", schedule=" + sch.toString();
     }
 
+
     public void greetPet() {
-        System.out.println("hello, " + pet.getNickname());
+        System.out.println("hello, " + family.getPet().getNickname());
     }
 
     public void describePet() {
-        String sly = (pet.getTrickLevel() > 50) ? "very sly" : "almost not sly";
-        System.out.println("I have  " + pet.getSpecies() + " is " + pet.getAge() + " years old, he is " + sly);
+        String sly = (family.getPet().getTrickLevel() > 50) ? "very sly" : "almost not sly";
+        System.out.println("I have  " + family.getPet().getSpecies() + " is " +
+                family.getPet().getAge() + " years old, he is " + sly);
     }
 
 }

@@ -1,36 +1,27 @@
 package HappyFamily;
 
 import java.util.Arrays;
+import java.util.Set;
 
-public class Pet {
-    private String species;
+public abstract class Pet {
+    private Species species;
     private String nickname;
     private int trickLevel;
     private int age;
-    private String[] habits;
+    private Set<String> habits;
 
-    public Pet(String species, String nickname) {
-        this.species = species;
-        this.nickname = nickname;
-    }
-
-    public Pet(String species, String nickname, int trickLevel, int age, String[] habits) {
-        this.species = species;
+    public Pet( String nickname, int trickLevel, int age, Set<String> habits) {
         this.nickname = nickname;
         this.trickLevel = trickLevel;
         this.age = age;
         this.habits = habits;
     }
 
-    public Pet() {
-
-    }
-
-    public String getSpecies() {
+    public Species getSpecies() {
         return species;
     }
 
-    public void setSpecies(String species) {
+    public void setSpecies(Species species) {
         this.species = species;
     }
 
@@ -47,9 +38,7 @@ public class Pet {
     }
 
     public void setTrickLevel(int trickLevel) {
-        if (trickLevel >= 1 && trickLevel < 100) {
-            this.trickLevel = trickLevel;
-        }
+        this.trickLevel = trickLevel;
     }
 
     public int getAge() {
@@ -60,22 +49,21 @@ public class Pet {
         this.age = age;
     }
 
-    public String[] getHabits() {
+    public Set<String> getHabits() {
         return habits;
     }
 
-    public void setHabits(String[] habits) {
+    public void setHabits(Set<String> habits) {
         this.habits = habits;
     }
 
+    /// METHODS
 
     public void eat() {
         System.out.println("i am eating");
     }
 
-    public void respond() {
-        System.out.println("Hello owner. I am - " + nickname + " I miss you");
-    }
+    public abstract void respond();
 
     public void foul() {
         System.out.println("I need to cover it up");
@@ -93,8 +81,12 @@ public class Pet {
 
     @Override
     public String toString() {
+        StringBuilder hab = new StringBuilder();
+        for(String i : habits){
+            hab.append(i).append(", ");
+        }
         return getSpecies() + "{nickname=" + getNickname() + ", age=" +
                 getAge() + ", tricklevel=" + getTrickLevel() +
-                ", habits=" + Arrays.toString(getHabits());
+                ", habits=" + hab.toString();
     }
 }
